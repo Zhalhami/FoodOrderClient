@@ -1,31 +1,32 @@
-import axios from 'axios';
-import { useState } from 'react';
-axios.defaults.baseURL = 'https://food-order-server-gfsr.vercel.app' || 'http://localhost:5000';
+import axios from "axios";
+import { useState } from "react";
+axios.defaults.baseURL =
+  "https://food-order-server-gfsr.vercel.app" || "http://localhost:5000";
 
 const Login = () => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
   const handleLogin = async () => {
     setLoading(true);
-    setError('');
+    setError("");
     try {
-      const response = await axios.post('/api/login', { username, password });
+      const response = await axios.post("/api/login", { username, password });
 
       // Store JWT token and user data in localStorage
-      localStorage.setItem('token', response.data.token);
-      localStorage.setItem('user', JSON.stringify(response.data.user));
+      localStorage.setItem("token", response.data.token);
+      localStorage.setItem("user", JSON.stringify(response.data.user));
 
       // Redirect based on user role
-      if (response.data.user.role === 'admin') {
-        window.location.href = '/admin';
+      if (response.data.user.role === "admin") {
+        window.location.href = "/admin";
       } else {
-        window.location.href = '/';
+        window.location.href = "/";
       }
     } catch (err) {
-      setError(err.response?.data?.message || 'Login failed');
+      setError(err.response?.data?.message || "Login failed");
     } finally {
       setLoading(false);
     }
@@ -34,20 +35,22 @@ const Login = () => {
   return (
     <div>
       <h1>Login</h1>
-      {error && <p style={{ color: 'red' }}>{error}</p>}
+      {error && <p style={{ color: "red" }}>{error}</p>}
       <input
         value={username}
         onChange={(e) => setUsername(e.target.value)}
         placeholder="Username"
+        autoComplete="off"
       />
       <input
         type="password"
         value={password}
         onChange={(e) => setPassword(e.target.value)}
         placeholder="Password"
+        autoComplete="off"
       />
       <button onClick={handleLogin} disabled={loading}>
-        {loading ? 'Logging in...' : 'Login'}
+        {loading ? "Logging in..." : "Login"}
       </button>
     </div>
   );

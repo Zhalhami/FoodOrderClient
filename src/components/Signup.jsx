@@ -1,12 +1,13 @@
-import axios from 'axios';
-import React, { useState } from 'react';
-axios.defaults.baseURL = 'https://food-order-server-gfsr.vercel.app' || 'http://localhost:5000';
+import axios from "axios";
+import React, { useState } from "react";
+axios.defaults.baseURL =
+  "https://food-order-server-gfsr.vercel.app" || "http://localhost:5000";
 
 const Signup = () => {
   const [formData, setFormData] = useState({
-    username: '',
-    password: '',
-    secretCode: '',
+    username: "",
+    password: "",
+    secretCode: "",
   });
 
   const handleChange = (e) => {
@@ -16,18 +17,36 @@ const Signup = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('/api/signup', formData);
-      console.log('Signup successful:', response.data);
+      const response = await axios.post("/api/signup", formData);
+      console.log("Signup successful:", response.data);
     } catch (error) {
-      console.error('Signup failed:', error.response?.data || error.message);
+      console.error("Signup failed:", error.response?.data || error.message);
     }
   };
 
   return (
     <form onSubmit={handleSubmit}>
-      <input type="text" name="username" placeholder="Username" onChange={handleChange} />
-      <input type="password" name="password" placeholder="Password" onChange={handleChange} />
-      <input type="text" name="secretCode" placeholder="Secret Code" onChange={handleChange} />
+      <input
+        type="text"
+        name="username"
+        placeholder="Username"
+        autoComplete="off"
+        onChange={handleChange}
+      />
+      <input
+        type="password"
+        name="password"
+        placeholder="Password"
+        autoComplete="off"
+        onChange={handleChange}
+      />
+      <input
+        type="text"
+        name="secretCode"
+        placeholder="Secret Code"
+        autoComplete="off"
+        onChange={handleChange}
+      />
       <button type="submit">Sign Up</button>
     </form>
   );

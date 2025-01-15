@@ -3,19 +3,27 @@ import Header from "./Header";
 import Cart from "./Cart";
 import { CartContext } from "./CreateContext";
 import Footer from "./Footer";
-import emailjs from 'emailjs-com';
+import emailjs from "emailjs-com";
 import axios from "axios";
-axios.defaults.baseURL = 'https://food-order-server-gfsr.vercel.app' || 'http://localhost:5000';
+axios.defaults.baseURL =
+  "https://food-order-server-gfsr.vercel.app" || "http://localhost:5000";
 
-function MenuPlan() { 
-  const { cart, showCart, handleShowCart, handleCloseCart, removeFromCart, addToCart } = useContext(CartContext);
+function MenuPlan() {
+  const {
+    cart,
+    showCart,
+    handleShowCart,
+    handleCloseCart,
+    removeFromCart,
+    addToCart,
+  } = useContext(CartContext);
   const [loading, setLoading] = useState(false);
   const [toggle, setToggle] = useState(1);
-  const [dietaryRestriction, setDietaryRestriction] = useState('');
+  const [dietaryRestriction, setDietaryRestriction] = useState("");
   const [menus, setMenus] = useState([]);
-  const [email, setEmail] = useState('');
-  const [message, setMessage] = useState('');
-  const [alertMessage, setAlertMessage] = useState('');
+  const [email, setEmail] = useState("");
+  const [message, setMessage] = useState("");
+  const [alertMessage, setAlertMessage] = useState("");
   const [showAlert, setShowAlert] = useState(false);
 
   useEffect(() => {
@@ -24,15 +32,15 @@ function MenuPlan() {
       try {
         const response = await axios.get("/api/main-menu");
         setTimeout(() => {
-          setMenus(response.data)
-          setLoading(false)
-        }, 3000)
+          setMenus(response.data);
+          setLoading(false);
+        }, 1000);
       } catch (error) {
         console.error("Error fetching menu data:", error);
         setLoading(false);
       }
     };
-  
+
     fetchMenuData();
   }, []);
 
@@ -87,16 +95,20 @@ function MenuPlan() {
         handleIncrease={handleAddToCart}
         removeFromCart={removeFromCart}
       />
-      <main style={{ flex: '1', marginTop: '90px' }}>
+      <main style={{ flex: "1", marginTop: "90px" }} className="mobile-header">
         <section className="menu-section">
           <h1 className="section-title">Restaurant Menu</h1>
           {loading ? (
-            <div className="loader"></div> 
+            <div className="loader"></div>
           ) : (
             <div className="menu-grid">
               {menus.map((menu) => (
                 <div className="menu-card" key={menu.id}>
-                  <img className="menu-image" src={menu.imgUrl} alt={menu.name} />
+                  <img
+                    className="menu-image"
+                    src={menu.imgUrl}
+                    alt={menu.name}
+                  />
                   <div className="menu-info">
                     <h4 className="menu-name">{menu.name}</h4>
                     <p className="menu-price">₦{menu.price}</p>
@@ -119,14 +131,16 @@ function MenuPlan() {
               <i className="fa-solid fa-bowl-food"></i>
               <h4>Custom Order</h4>
               <p>
-                Have your order customized to your preference and get it on time.
+                Have your order customized to your preference and get it on
+                time.
               </p>
             </button>
             <button className="plan-btn" onClick={() => handleClick(2)}>
               <i className="fa-solid fa-user-doctor"></i>
               <h4>Chat With a Nutritionist</h4>
               <p>
-                Our experienced nutritionists are ready to help you plan your meal.
+                Our experienced nutritionists are ready to help you plan your
+                meal.
               </p>
             </button>
           </div>

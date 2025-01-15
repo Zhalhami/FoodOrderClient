@@ -3,7 +3,7 @@ import React from "react";
 import axios from "axios";
 import UpdateOfferForm from "./UpdateOfferForm";
 import UpdateMenuForm from "./UpdateMenuForm";
-axios.defaults.baseURL = 'https://food-order-server-gfsr.vercel.app';
+axios.defaults.baseURL = 'https://food-order-server-gfsr.vercel.app' || 'http://localhost:5000';
 
 
 function Admin() {
@@ -107,8 +107,6 @@ function Admin() {
       <div>
         <h1 style={{textAlign:"center", color:"#fff"}}>You've Got Control</h1>
       </div>
-
-      {/* Special Offers Section */}
       <div className="adminform">
         <h2>Special Offers Section</h2>
         <form onSubmit={handleSpecialOffersFormSubmit}>
